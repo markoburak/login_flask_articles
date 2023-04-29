@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+{% if user.email == 'admin@gmail.com'%}
+<h1>This is admin page</h1>
+<br>
+<div id="posts">
+{% for post in posts %}
+    <div class="card border-dark">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a href="/admin_page/posts/{{post.id}}">{{post.title}}</a>
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><a href="/admin_page/delete_post/{{post.id}}" class="dropdown-item">Delete</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <p>Text: {{post.text}}</p>
+                {% set post_src = 'images/posts/' ~ post.img_path_name %}
+                <img src="{{ url_for('static', filename=post_src) }}" alt="post img">
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            {{post.date}}</div>
+        </div>
+        
+        <br>
+{% endfor %}
+</div>
+
+<br>
+<div align="center">
+    <a href="/admin_page/create-post">
+        <button class="btn btn-lg btn-primary">Create a new post</button>
+    </a>
+</div>
+{% endif %}
+{% endblock %}

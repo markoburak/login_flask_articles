@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>This is homepage</h1>
+<br>
+<div id="posts">
+{% for post in posts %}
+    <div class="card border-dark">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a href="/posts/{{post.id}}">{{post.title}}</a>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <p>Text: {{post.text}}</p>
+                {% set post_src = 'images/posts/' ~ post.img_path_name %}
+                <img src="{{ url_for('static', filename=post_src) }}" alt="post img">
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            {{post.date}}</div>
+        </div>
+        <br>
+{% endfor %}
+</div>
+
+{% endblock %}
